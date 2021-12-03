@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/pmorelli92/open-telemetry-go/proto";
+
+package checkout;
+
+service Checkout {
+  rpc DoCheckout (CheckoutRequest) returns (CheckoutResponse) {}
+}
+
+message CheckoutRequest {
+  repeated int32 itemsID = 1;
+}
+
+message CheckoutResponse {
+  int32 totalAmount = 1;
+}
