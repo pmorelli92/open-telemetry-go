@@ -5,3 +5,16 @@ services:
     ports:
       - "16686:16686"
       - "6831:6831"
+  gateway:
+    build:
+      context: gateway
+    restart: on-failure
+    ports:
+      - "8081:8081"
+    environment:
+      - JAEGER_ADDRESS=jaeger
+      - JAEGER_PORT=6831
+      - PRIVATE_LOAN_APPLICATION_ADDRESS=checkout:8080
+      - HTTP_ADDRESS=:8081
+    depends_on:
+      - jaeger
