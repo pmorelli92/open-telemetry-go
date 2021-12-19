@@ -41,3 +41,17 @@ services:
     depends_on:
       - jaeger
       - checkout
+  stock:
+    build:
+      context: stock
+    restart: on-failure
+    environment:
+      - JAEGER_ADDRESS=jaeger
+      - JAEGER_PORT=6831
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - jaeger
+      - rabbitmq
