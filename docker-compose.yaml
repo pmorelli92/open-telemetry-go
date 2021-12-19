@@ -5,6 +5,28 @@ services:
     ports:
       - "16686:16686"
       - "6831:6831"
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  checkout:
+    build:
+      context: checkout
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      - JAEGER_ADDRESS=jaeger
+      - JAEGER_PORT=6831
+      - GRPC_ADDRESS=checkout:8080
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - jaeger
+      - rabbitmq
   gateway:
     build:
       context: gateway
@@ -18,3 +40,4 @@ services:
       - HTTP_ADDRESS=:8081
     depends_on:
       - jaeger
+      - checkout
