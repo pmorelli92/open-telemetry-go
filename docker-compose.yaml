@@ -14,7 +14,7 @@ services:
     environment:
       - JAEGER_ADDRESS=jaeger
       - JAEGER_PORT=6831
-      - PRIVATE_LOAN_APPLICATION_ADDRESS=checkout:8080
+      - CHECKOUT_SERVICE_ADDRESS=checkout:8080
       - HTTP_ADDRESS=:8081
     depends_on:
       - jaeger
