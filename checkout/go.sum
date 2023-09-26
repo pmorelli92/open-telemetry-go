@@ -34,8 +34,6 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/pmorelli92/open-telemetry-go/proto v0.0.0-20230926084205-73a71f0e1d03 h1:XYd5bpx64J6yxRlH76AgwDN5T6wlxQ0lb8bBVsgSfOQ=
 github.com/pmorelli92/open-telemetry-go/proto v0.0.0-20230926084205-73a71f0e1d03/go.mod h1:+WfUde5B5Umyqw4el1OEmtqGSAAx9Oyq8PaSWOLywEM=
-github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926084205-73a71f0e1d03 h1:B0iMlIqPLekJ0ybETdueeUhawJkfzayEIbZ/oE0y6TA=
-github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926084205-73a71f0e1d03/go.mod h1:rlaNMDvQ6v03RcILZE5wtvtj/u4fO/nKkaKg2etoX4I=
 github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717 h1:JwQMDyxSMBbi7dmh8MHFow0G8VacZgGKXMZKRyq3IXU=
 github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717/go.mod h1:rlaNMDvQ6v03RcILZE5wtvtj/u4fO/nKkaKg2etoX4I=
 github.com/rabbitmq/amqp091-go v1.8.1 h1:RejT1SBUim5doqcL6s7iN6SBmsQqyTgXb1xMlH0h1hA=
