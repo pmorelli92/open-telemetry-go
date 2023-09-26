@@ -17,8 +17,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - JAEGER_ADDRESS=jaeger
-      - JAEGER_PORT=6831
+      - JAEGER_ENDPOINT=jaeger:6831
       - GRPC_ADDRESS=checkout:8080
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
@@ -34,8 +33,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - JAEGER_ADDRESS=jaeger
-      - JAEGER_PORT=6831
+      - JAEGER_ENDPOINT=jaeger:6831
       - CHECKOUT_SERVICE_ADDRESS=checkout:8080
       - HTTP_ADDRESS=:8081
     depends_on:
@@ -46,8 +44,7 @@ services:
       context: stock
     restart: on-failure
     environment:
-      - JAEGER_ADDRESS=jaeger
-      - JAEGER_PORT=6831
+      - JAEGER_ENDPOINT=jaeger:6831
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
       - RABBITMQ_HOST=rabbitmq
