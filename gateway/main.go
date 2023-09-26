@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:6831")
+	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:4318")
 	checkoutAddress := utils.EnvString("CHECKOUT_SERVICE_ADDRESS", "localhost:8080")
 	httpAddress := utils.EnvString("HTTP_ADDRESS", ":8081")
 

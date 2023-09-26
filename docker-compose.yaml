@@ -4,7 +4,7 @@ services:
     image: "jaegertracing/all-in-one:latest"
     ports:
       - "16686:16686"
-      - "6831:6831"
+      - "4318:4318"
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
@@ -17,7 +17,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - JAEGER_ENDPOINT=jaeger:6831
+      - JAEGER_ENDPOINT=jaeger:4318
       - GRPC_ADDRESS=checkout:8080
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
@@ -33,7 +33,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - JAEGER_ENDPOINT=jaeger:6831
+      - JAEGER_ENDPOINT=jaeger:4318
       - CHECKOUT_SERVICE_ADDRESS=checkout:8080
       - HTTP_ADDRESS=:8081
     depends_on:
@@ -44,7 +44,7 @@ services:
       context: stock
     restart: on-failure
     environment:
-      - JAEGER_ENDPOINT=jaeger:6831
+      - JAEGER_ENDPOINT=jaeger:4318
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
       - RABBITMQ_HOST=rabbitmq

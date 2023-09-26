@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:6831")
+	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:4318")
 	amqpUser := utils.EnvString("RABBITMQ_USER", "guest")
 	amqpPass := utils.EnvString("RABBITMQ_PASS", "guest")
 	amqpHost := utils.EnvString("RABBITMQ_HOST", "localhost")

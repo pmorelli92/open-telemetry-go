@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:6831")
+	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:4318")
 	grpcAddress := utils.EnvString("GRPC_ADDRESS", "localhost:8080")
 	amqpUser := utils.EnvString("RABBITMQ_USER", "guest")
 	amqpPass := utils.EnvString("RABBITMQ_PASS", "guest")
@@ -66,7 +66,7 @@ func (s *server) DoCheckout(ctx context.Context, rq *pb.CheckoutRequest) (*pb.Ch
 	// Inject the context in the headers
 	headers := utils.InjectAMQPHeaders(amqpContext)
 	msg := amqp091.Publishing{Headers: headers}
-	err := s.channel.Publish("exchange", messageName, false, false, msg)
+	err := s.channel.PublishWithContext(ctx, "exchange", messageName, false, false, msg)
 	if err != nil {
 		log.Fatal(err)
 	}
