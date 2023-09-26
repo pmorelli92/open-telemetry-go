@@ -1,4 +1,4 @@
-FROM golang:alpine3.14 AS compiler
+FROM golang:alpine3.18 AS compiler
 RUN apk --update --no-cache add git
 WORKDIR /gateway
 
