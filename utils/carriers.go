@@ -24,7 +24,7 @@ func (a AmqpHeadersCarrier) Keys() []string {
 	i := 0
 	r := make([]string, len(a))
 
-	for k, _ := range a {
+	for k := range a {
 		r[i] = k
 		i++
 	}

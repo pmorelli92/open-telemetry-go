@@ -1,20 +1,20 @@
 package utils
 
 import (
+	"context"
+
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 )
 
-func SetGlobalTracer(serviceName string, exporterAddress string, exporterPort string) error {
-	exporter, err := jaeger.New(jaeger.WithAgentEndpoint(
-		jaeger.WithAgentHost(exporterAddress),
-		jaeger.WithAgentPort(exporterPort),
-	))
-
+func SetGlobalTracer(ctx context.Context, serviceName, exporterEndpoint string) error {
+	client := otlptracehttp.NewClient(otlptracehttp.WithEndpoint(exporterEndpoint))
+	exporter, err := otlptrace.New(ctx, client)
 	if err != nil {
 		return err
 	}
