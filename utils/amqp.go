@@ -2,14 +2,15 @@ package utils
 
 import (
 	"fmt"
-	"github.com/streadway/amqp"
 	"log"
+
+	"github.com/rabbitmq/amqp091-go"
 )
 
-func ConnectAmqp(user, pass, host, port string) (*amqp.Channel, func() error) {
+func ConnectAmqp(user, pass, host, port string) (*amqp091.Channel, func() error) {
 	address := fmt.Sprintf("amqp://%s:%s@%s:%s/", user, pass, host, port)
 
-	connection, err := amqp.Dial(address)
+	connection, err := amqp091.Dial(address)
 	if err != nil {
 		log.Fatal(err)
 	}
