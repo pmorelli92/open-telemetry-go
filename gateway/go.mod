@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/pmorelli92/open-telemetry-go/proto v0.0.0-20230926084205-73a71f0e1d03
-	github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926084205-73a71f0e1d03
+	github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.44.0
 	go.opentelemetry.io/otel v1.18.0
 	google.golang.org/grpc v1.58.2
