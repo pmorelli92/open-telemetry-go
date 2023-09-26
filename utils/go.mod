@@ -3,7 +3,6 @@ module github.com/pmorelli92/open-telemetry-go/utils
 go 1.21
 
 require (
-	github.com/rabbitmq/amqp091-go v1.8.1
 	go.opentelemetry.io/otel v1.18.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.18.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.18.0

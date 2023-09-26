@@ -3,8 +3,8 @@ module github.com/pmorelli92/open-telemetry-go/stock
 go 1.21
 
 require (
+	github.com/pmorelli92/bunnify v0.0.2-0.20230926192322-a7d8cd45f192
 	github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717
-	github.com/rabbitmq/amqp091-go v1.8.1
 	go.opentelemetry.io/otel v1.18.0
 )
 
@@ -13,7 +13,9 @@ require (
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/google/uuid v1.3.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0 // indirect
+	github.com/rabbitmq/amqp091-go v1.8.1 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.18.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.18.0 // indirect
 	go.opentelemetry.io/otel/metric v1.18.0 // indirect

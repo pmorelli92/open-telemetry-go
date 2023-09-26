@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"sync"
-	"time"
 
+	"github.com/pmorelli92/bunnify/bunnify"
 	"github.com/pmorelli92/open-telemetry-go/utils"
-	"github.com/rabbitmq/amqp091-go"
 	"go.opentelemetry.io/otel"
 )
 
@@ -17,30 +17,24 @@ func main() {
 	amqpPass := utils.EnvString("RABBITMQ_PASS", "guest")
 	amqpHost := utils.EnvString("RABBITMQ_HOST", "localhost")
 	amqpPort := utils.EnvString("RABBITMQ_PORT", "5672")
+	amqpDNS := fmt.Sprintf("%s:%s@%s:%s", amqpUser, amqpPass, amqpHost, amqpPort)
 
 	err := utils.SetGlobalTracer(context.Background(), "stock", jaegerEndpoint)
 	if err != nil {
 		log.Fatalf("failed to create tracer: %v", err)
 	}
 
-	channel, closeConn := utils.ConnectAmqp(amqpUser, amqpPass, amqpHost, amqpPort)
-	defer func() {
-		_ = closeConn()
-	}()
+	cn := bunnify.NewConnection(bunnify.WithURI(amqpDNS))
 
-	// Create queue and binding
-	_, err = channel.QueueDeclare("stock-queue", true, false, false, false, nil)
-	if err != nil {
+	consumer := cn.NewConsumer(
+		"stock-queue",
+		bunnify.WithBindingToExchange("exchange"),
+		bunnify.WithHandler[any]("checkout.processed", checkoutProcessedHandler))
+
+	if err := consumer.Consume(); err != nil {
 		log.Fatal(err)
 	}
 
-	err = channel.QueueBind("stock-queue", "checkout.processed", "exchange", false, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Start consuming
-	go ConsumeFromAMQP(channel)
 	log.Println("AMQP listening")
 
 	// Block termination
@@ -49,32 +43,14 @@ func main() {
 	wg.Wait()
 }
 
-func ConsumeFromAMQP(channel *amqp091.Channel) {
-	// Start the consumption
-	deliveries, err := channel.Consume("stock-queue", "some-tag", false, false, false, false, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+func checkoutProcessedHandler(ctx context.Context, event bunnify.ConsumableEvent[any]) error {
+	// Extract headers
+	ctx = utils.ExtractAMQPHeaders(ctx, event.DeliveryInfo.AMQPHeaders)
 
-	for {
-		// For each message
-		d := <-deliveries
+	// Create a new span
+	tr := otel.Tracer("amqp")
+	_, messageSpan := tr.Start(ctx, "AMQP - consume - checkout.processed")
+	defer messageSpan.End()
 
-		// Extract headers
-		ctx := utils.ExtractAMQPHeaders(context.Background(), d.Headers)
-
-		// Create a new span
-		tr := otel.Tracer("amqp")
-		_, messageSpan := tr.Start(ctx, "AMQP - consume - checkout.processed")
-
-		// Cannot use defer inside a for loop
-		time.Sleep(1 * time.Millisecond)
-		messageSpan.End()
-
-		// ACK the message
-		err = d.Ack(false)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
+	return nil
 }

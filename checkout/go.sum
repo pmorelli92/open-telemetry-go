@@ -25,6 +25,8 @@ github.com/golang/protobuf v1.5.3/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiu
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
 github.com/google/go-cmp v0.5.9/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
+github.com/google/uuid v1.3.1 h1:KjJaJ9iWZ3jOFZIf1Lqf4laDRCasjl0BCmnEGxkdLb4=
+github.com/google/uuid v1.3.1/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0 h1:RtRsiaGvWxcwd8y3BiRZxsylPT8hLWZ5SPcfI+3IDNk=
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0/go.mod h1:TzP6duP4Py2pHLVPPQp42aoYI92+PCrVotyR5e8Vqlk=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
@@ -32,6 +34,8 @@ github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/pmorelli92/bunnify v0.0.2-0.20230926192322-a7d8cd45f192 h1:SeNhMqFGItzkcpDVPgZgo1oJquOlE+wHN/z7YG1gCTw=
+github.com/pmorelli92/bunnify v0.0.2-0.20230926192322-a7d8cd45f192/go.mod h1:HTMtr7Wx5S58VJy7LC2wkaDEiMlukggUcxNxQgWKjyw=
 github.com/pmorelli92/open-telemetry-go/proto v0.0.0-20230926084205-73a71f0e1d03 h1:XYd5bpx64J6yxRlH76AgwDN5T6wlxQ0lb8bBVsgSfOQ=
 github.com/pmorelli92/open-telemetry-go/proto v0.0.0-20230926084205-73a71f0e1d03/go.mod h1:+WfUde5B5Umyqw4el1OEmtqGSAAx9Oyq8PaSWOLywEM=
 github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717 h1:JwQMDyxSMBbi7dmh8MHFow0G8VacZgGKXMZKRyq3IXU=
