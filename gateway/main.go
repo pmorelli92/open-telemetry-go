@@ -1,32 +1,34 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"log"
+	"net/http"
+
 	pb "github.com/pmorelli92/open-telemetry-go/proto"
 	"github.com/pmorelli92/open-telemetry-go/utils"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/codes"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
-	"log"
-	"net/http"
 )
 
 func main() {
-	jaegerAddress := utils.EnvString("JAEGER_ADDRESS", "localhost")
-	jaegerPort := utils.EnvString("JAEGER_PORT", "6831")
+	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:6831")
 	checkoutAddress := utils.EnvString("CHECKOUT_SERVICE_ADDRESS", "localhost:8080")
 	httpAddress := utils.EnvString("HTTP_ADDRESS", ":8081")
 
-	err := utils.SetGlobalTracer("gateway", jaegerAddress, jaegerPort)
+	err := utils.SetGlobalTracer(context.TODO(), "gateway", jaegerEndpoint)
 	if err != nil {
 		log.Fatalf("failed to create tracer: %v", err)
 	}
 
 	conn, err := grpc.Dial(
 		checkoutAddress,
-		grpc.WithInsecure(),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
 		grpc.WithStreamInterceptor(otelgrpc.StreamClientInterceptor()))
 
