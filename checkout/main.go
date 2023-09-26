@@ -3,33 +3,35 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"net"
+
 	pb "github.com/pmorelli92/open-telemetry-go/proto"
 	"github.com/pmorelli92/open-telemetry-go/utils"
-	"github.com/streadway/amqp"
+	"github.com/rabbitmq/amqp091-go"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
-	"log"
-	"net"
 )
 
 func main() {
-	jaegerAddress := utils.EnvString("JAEGER_ADDRESS", "localhost")
-	jaegerPort := utils.EnvString("JAEGER_PORT", "6831")
+	jaegerEndpoint := utils.EnvString("JAEGER_ENDPOINT", "localhost:6831")
 	grpcAddress := utils.EnvString("GRPC_ADDRESS", "localhost:8080")
 	amqpUser := utils.EnvString("RABBITMQ_USER", "guest")
 	amqpPass := utils.EnvString("RABBITMQ_PASS", "guest")
 	amqpHost := utils.EnvString("RABBITMQ_HOST", "localhost")
 	amqpPort := utils.EnvString("RABBITMQ_PORT", "5672")
 
-	err := utils.SetGlobalTracer("checkout", jaegerAddress, jaegerPort)
+	err := utils.SetGlobalTracer(context.Background(), "checkout", jaegerEndpoint)
 	if err != nil {
 		log.Fatalf("failed to create tracer: %v", err)
 	}
 
 	channel, closeConn := utils.ConnectAmqp(amqpUser, amqpPass, amqpHost, amqpPort)
-	defer closeConn()
+	defer func() {
+		_ = closeConn()
+	}()
 
 	lis, err := net.Listen("tcp", grpcAddress)
 	if err != nil {
@@ -50,7 +52,7 @@ func main() {
 
 type server struct {
 	pb.UnimplementedCheckoutServer
-	channel *amqp.Channel
+	channel *amqp091.Channel
 }
 
 func (s *server) DoCheckout(ctx context.Context, rq *pb.CheckoutRequest) (*pb.CheckoutResponse, error) {
@@ -63,7 +65,7 @@ func (s *server) DoCheckout(ctx context.Context, rq *pb.CheckoutRequest) (*pb.Ch
 
 	// Inject the context in the headers
 	headers := utils.InjectAMQPHeaders(amqpContext)
-	msg := amqp.Publishing{Headers: headers}
+	msg := amqp091.Publishing{Headers: headers}
 	err := s.channel.Publish("exchange", messageName, false, false, msg)
 	if err != nil {
 		log.Fatal(err)
