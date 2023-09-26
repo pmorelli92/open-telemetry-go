@@ -13,7 +13,10 @@ import (
 )
 
 func SetGlobalTracer(ctx context.Context, serviceName, exporterEndpoint string) error {
-	client := otlptracehttp.NewClient(otlptracehttp.WithEndpoint(exporterEndpoint))
+	client := otlptracehttp.NewClient(
+		otlptracehttp.WithInsecure(),
+		otlptracehttp.WithEndpoint(exporterEndpoint))
+
 	exporter, err := otlptrace.New(ctx, client)
 	if err != nil {
 		return err
