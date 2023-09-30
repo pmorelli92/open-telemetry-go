@@ -23,7 +23,7 @@ func main() {
 	amqpPass := utils.EnvString("RABBITMQ_PASS", "guest")
 	amqpHost := utils.EnvString("RABBITMQ_HOST", "localhost")
 	amqpPort := utils.EnvString("RABBITMQ_PORT", "5672")
-	amqpDNS := fmt.Sprintf("%s:%s@%s:%s", amqpUser, amqpPass, amqpHost, amqpPort)
+	amqpDNS := fmt.Sprintf("amqp://%s:%s@%s:%s", amqpUser, amqpPass, amqpHost, amqpPort)
 
 	err := utils.SetGlobalTracer(context.Background(), "checkout", jaegerEndpoint)
 	if err != nil {
@@ -31,6 +31,8 @@ func main() {
 	}
 
 	cn := bunnify.NewConnection(bunnify.WithURI(amqpDNS))
+	cn.Start()
+
 	publisher := cn.NewPublisher()
 
 	lis, err := net.Listen("tcp", grpcAddress)

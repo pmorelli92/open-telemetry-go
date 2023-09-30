@@ -3,7 +3,7 @@ module github.com/pmorelli92/open-telemetry-go/checkout
 go 1.21
 
 require (
-	github.com/pmorelli92/bunnify v0.0.2-0.20230926192322-a7d8cd45f192
+	github.com/pmorelli92/bunnify v0.0.2-0.20230930113342-9756e653c688
 	github.com/pmorelli92/open-telemetry-go/proto v0.0.0-20230926084205-73a71f0e1d03
 	github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717
 	github.com/rabbitmq/amqp091-go v1.8.1
