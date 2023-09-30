@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
+	"time"
 
 	"github.com/pmorelli92/bunnify/bunnify"
 	"github.com/pmorelli92/open-telemetry-go/utils"
@@ -51,6 +52,9 @@ func checkoutProcessedHandler(ctx context.Context, event bunnify.ConsumableEvent
 	tr := otel.Tracer("amqp")
 	_, messageSpan := tr.Start(ctx, "AMQP - consume - checkout.processed")
 	defer messageSpan.End()
+
+	// Imaginary processing time
+	time.Sleep(50 * time.Millisecond)
 
 	return nil
 }
