@@ -9,7 +9,6 @@ import (
 	"github.com/pmorelli92/bunnify/bunnify"
 	pb "github.com/pmorelli92/open-telemetry-go/proto"
 	"github.com/pmorelli92/open-telemetry-go/utils"
-	"github.com/rabbitmq/amqp091-go"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
@@ -67,11 +66,7 @@ func (s *server) DoCheckout(ctx context.Context, rq *pb.CheckoutRequest) (*pb.Ch
 
 	err := s.publisher.Publish(
 		amqpContext, "exchange", messageName,
-		bunnify.NewPublishableEvent(struct{}{}),
-		func(p *amqp091.Publishing) {
-			// Inject the context in the headers
-			p.Headers = utils.InjectAMQPHeaders(amqpContext)
-		})
+		bunnify.NewPublishableEvent(struct{}{}))
 	if err != nil {
 		return nil, err
 	}

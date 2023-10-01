@@ -46,9 +46,6 @@ func main() {
 }
 
 func checkoutProcessedHandler(ctx context.Context, event bunnify.ConsumableEvent[any]) error {
-	// Extract headers
-	ctx = utils.ExtractAMQPHeaders(ctx, event.DeliveryInfo.AMQPHeaders)
-
 	// Create a new span
 	tr := otel.Tracer("amqp")
 	_, messageSpan := tr.Start(ctx, "AMQP - consume - checkout.processed")
