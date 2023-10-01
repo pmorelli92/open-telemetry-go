@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/pmorelli92/bunnify v0.0.2-0.20231001084713-6d915b9500fc
-	github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20230926092122-392d87ca3717
+	github.com/pmorelli92/open-telemetry-go/utils v0.0.0-20231001085030-57ee6b77f47c
 	go.opentelemetry.io/otel v1.19.0
 )
 
@@ -16,8 +16,8 @@ require (
 	github.com/google/uuid v1.3.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0 // indirect
 	github.com/rabbitmq/amqp091-go v1.8.1 // indirect
-	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.18.0 // indirect
-	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.18.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.19.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.19.0 // indirect
 	go.opentelemetry.io/otel/metric v1.19.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.19.0 // indirect
 	go.opentelemetry.io/otel/trace v1.19.0 // indirect
