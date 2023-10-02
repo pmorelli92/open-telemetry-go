@@ -26,7 +26,9 @@ func main() {
 	}
 
 	cn := bunnify.NewConnection(bunnify.WithURI(amqpDNS))
-	cn.Start()
+	if err := cn.Start(); err != nil {
+		log.Fatal(err)
+	}
 
 	consumer := cn.NewConsumer(
 		"stock-queue",
