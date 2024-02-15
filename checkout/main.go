@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/pmorelli92/bunnify/bunnify"
+	"github.com/pmorelli92/bunnify"
 	pb "github.com/pmorelli92/open-telemetry-go/proto"
 	"github.com/pmorelli92/open-telemetry-go/utils"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
