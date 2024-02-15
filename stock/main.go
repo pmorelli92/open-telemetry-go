@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/pmorelli92/bunnify/bunnify"
+	"github.com/pmorelli92/bunnify"
 	"github.com/pmorelli92/open-telemetry-go/utils"
 	"go.opentelemetry.io/otel"
 )
